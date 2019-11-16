@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Map = props => {
   const classes = GameStyles();
-  const { player, token, current_coordinates } = props;
+  const { player, setPlayer, token } = props;
 
   const [map, setMap] = useState([]);
   const [graph, setGraph] = useState();
@@ -83,10 +83,10 @@ const Map = props => {
                     <FontAwesomeIcon icon={faArrowLeft} />
                   </div>
                   {/* render room icon differently based on if player is in room */}
-                  {current_coordinates === `(${x},${y})` && (
+                  {player.coordinates === `(${x},${y})` && (
                     <FontAwesomeIcon size="6x" icon={faSquare} />
                   )}
-                  {current_coordinates !== `(${x},${y})` && (
+                  {player.coordinates !== `(${x},${y})` && (
                     <FontAwesomeIcon icon={regSquare} />
                   )}
                   <div className={east > 0 ? classes.show : classes.hidden}>
@@ -132,6 +132,21 @@ const Map = props => {
           params
         );
         console.log(moved);
+        // only post to pg server if proper response from lambda and room does not already exist
+        if (moved && !map.find(r => r.room_id === moved.room_id)) {
+          // const {
+          //   room_id,
+          //   title,
+          //   description,
+          //   coordinates,
+          //   elevation,
+          //   terrain,
+          //   items,
+          //   exits
+          // } = moved;
+          const res = await axios.post("http://localhost:5000/api/map", moved);
+          setPlayer({ ...player, ...res.data });
+        }
       } catch (err) {
         console.log(err);
       }

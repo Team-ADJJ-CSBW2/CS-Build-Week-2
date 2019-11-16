@@ -5,7 +5,7 @@ import Map from "./Map.js";
 
 const Game = () => {
   const classes = GameStyles();
-  const token = "xxx";
+  const token = process.env.REACT_APP_TOKEN;
 
   const [player, setPlayer] = useState({
     name: "Unknown",
@@ -24,8 +24,6 @@ const Game = () => {
     messages: []
   });
 
-  const [location, setLocation] = useState("(60,60)");
-
   useEffect(() => {
     const init = async () => {
       const res = await axios.get(
@@ -37,11 +35,10 @@ const Game = () => {
         }
       );
       setPlayer({ ...player, ...res.data });
-      setLocation(res.data.coordinates);
       console.log(res.data);
     };
     init();
-  }, [player]);
+  }, [player, token]);
 
   useEffect(() => {
     const status = async () => {
@@ -91,7 +88,7 @@ const Game = () => {
       </div>
       <div className={classes.mainSection}>
         <div className={classes.mapSection}>
-          <Map player={player} current_coordinates={location} token={token} />
+          <Map player={player} token={token} setPlayer={setPlayer} />
         </div>
       </div>
     </div>
