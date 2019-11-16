@@ -30,7 +30,7 @@ const Game = () => {
         "https://lambda-treasure-hunt.herokuapp.com/api/adv/init/",
         {
           headers: {
-            authorization: `Token ${token}`
+            Authorization: `Token ${token}`
           }
         }
       );
@@ -46,7 +46,7 @@ const Game = () => {
         "https://lambda-treasure-hunt.herokuapp.com/api/adv/status/",
         {
           headers: {
-            authorization: `Token ${token}`
+            Authorization: `Token ${token}`
           }
         }
       );
