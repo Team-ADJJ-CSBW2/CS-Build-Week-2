@@ -5,7 +5,7 @@ import Map from "./Map.js";
 
 const Game = () => {
   const classes = GameStyles();
-  const token = "3c0bafec5baddbb3fa7a8ca7c72c2b9b3b3062a9";
+  const token = "xxx";
 
   const [player, setPlayer] = useState({
     name: "Unknown",
@@ -40,6 +40,10 @@ const Game = () => {
       setLocation(res.data.coordinates);
       console.log(res.data);
     };
+    init();
+  }, [player]);
+
+  useEffect(() => {
     const status = async () => {
       const res = await axios.post(
         "https://lambda-treasure-hunt.herokuapp.com/api/adv/status/",
@@ -52,17 +56,8 @@ const Game = () => {
       setPlayer({ ...player, ...res.data });
       console.log(res.data);
     };
-    init();
     status();
-  }, [player]);
-
-  const move = direction => {
-    if (player.exits.includes(direction)) {
-      console.log(`you tried to move ${direction}`);
-    } else {
-      alert(`You can't move ${direction.toUpperCase()}!`);
-    }
-  };
+  });
 
   return (
     <div className={classes.container}>
@@ -93,18 +88,10 @@ const Game = () => {
           </div>
         </div>
         <h2 className={classes.headertwo}>Movement</h2>
-        <div className={classes.navigation}>
-          <button onClick={() => move("n")}>North</button>
-          <div>
-            <button onClick={() => move("w")}>West</button>
-            <button onClick={() => move("s")}>South</button>
-            <button onClick={() => move("e")}>East</button>
-          </div>
-        </div>
       </div>
       <div className={classes.mainSection}>
         <div className={classes.mapSection}>
-          <Map currentRoom={player.room_id} current_coordinates={location} />
+          <Map player={player} current_coordinates={location} token={token} />
         </div>
       </div>
     </div>

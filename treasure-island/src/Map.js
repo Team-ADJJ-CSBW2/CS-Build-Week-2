@@ -14,9 +14,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Map = props => {
   const classes = GameStyles();
-  const { current_coordinates } = props;
+  const { player, token, current_coordinates } = props;
 
   const [map, setMap] = useState([]);
+  const [graph, setGraph] = useState();
 
   useEffect(() => {
     axios
@@ -24,11 +25,10 @@ const Map = props => {
       .then(res => {
         console.log(res.data);
         setMap(res.data.rooms);
+        setGraph(res.data.graph);
       })
       .catch(err => console.log(err));
   }, []);
-
-  console.log("rooms:", map);
 
   // Convert coords to integers
   const coords = map.map(r =>
@@ -113,7 +113,46 @@ const Map = props => {
     return gameMap;
   };
 
-  return <div className={classes.gridContainer}>{createMap()}</div>;
+  console.log("player:", player, "rooms:", map, "graph:", graph);
+
+  const move = async direction => {
+    if (player.exits.includes(direction)) {
+      const params = {
+        direction,
+        headers: {
+          authorization: `Token ${token}`
+        }
+      };
+      if (graph[player.room_id][direction] !== "?")
+        params.next_room_id = graph[player.room_id][direction];
+      console.log(params);
+      try {
+        const moved = await axios.post(
+          "https://lambda-treasure-hunt.herokuapp.com/api/adv/move/",
+          params
+        );
+        console.log(moved);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      alert(`You can't move ${direction.toUpperCase()}!`);
+    }
+  };
+
+  return (
+    <div>
+      <div className={classes.gridContainer}>{createMap()}</div>
+      <div className={classes.navigation}>
+        <button onClick={() => move("n")}>North</button>
+        <div>
+          <button onClick={() => move("w")}>West</button>
+          <button onClick={() => move("s")}>South</button>
+          <button onClick={() => move("e")}>East</button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Map;

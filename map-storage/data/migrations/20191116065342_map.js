@@ -1,6 +1,8 @@
 exports.up = function(knex) {
   return knex.schema.createTable("map", map => {
-    map.increments("room_id");
+    map.increments();
+
+    map.integer("room_id");
 
     map.string("title", 256);
     map.string("description", 256);
