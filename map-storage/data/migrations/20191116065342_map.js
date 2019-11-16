@@ -6,6 +6,11 @@ exports.up = function(knex) {
     map.string("description", 256);
     map.string("coordinates", 256);
 
+    map.integer("elevation");
+    map.string("terrain", 256);
+
+    map.specificType("items", "text ARRAY");
+
     map.specificType("exits", "text ARRAY");
   });
 };
