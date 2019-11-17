@@ -25,7 +25,8 @@ const GameStyles = makeStyles({
   },
   headertwo: {
     fontSize: "2rem",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    margin: "1% 0"
   },
   text: {
     fontSize: "1.6rem"
@@ -64,7 +65,16 @@ const GameStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    margin: "2%"
+  },
+  navBotButtons: {
+    display: "flex",
+    justifyContent: "center",
+    width: "300px"
+  },
+  navButtons: {
+    margin: "1%"
   },
 
   gridContainer: {
@@ -85,7 +95,7 @@ const GameStyles = makeStyles({
     // width: "50px",
     color: "green",
     display: "flex",
-    margin: "2%"
+    margin: "1%"
   },
   roomGrid: {
     display: "flex",
@@ -97,6 +107,17 @@ const GameStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center"
+  },
+
+  timer: {
+    fontSize: "2rem",
+    textAlign: "center",
+    color: "black"
+  },
+  timerStart: {
+    fontSize: "2rem",
+    textAlign: "center",
+    color: "red"
   }
 });
 

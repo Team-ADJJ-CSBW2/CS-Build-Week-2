@@ -84,7 +84,6 @@ const Game = () => {
             })}
           </div>
         </div>
-        <h2 className={classes.headertwo}>Movement</h2>
       </div>
       <div className={classes.mainSection}>
         <div className={classes.mapSection}>

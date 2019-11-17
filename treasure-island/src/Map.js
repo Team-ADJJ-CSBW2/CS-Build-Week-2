@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import GameStyles from "./GameStyles.js";
+import Timer from "./Timer.js";
 import axios from "axios";
 
 import { faSquare as regSquare } from "@fortawesome/free-regular-svg-icons";
@@ -18,6 +19,7 @@ const Map = props => {
 
   const [map, setMap] = useState([]);
   const [graph, setGraph] = useState();
+  const [cooldown, setCooldown] = useState(0);
 
   useEffect(() => {
     axios
@@ -146,6 +148,7 @@ const Map = props => {
           // } = moved;
           const res = await axios.post("http://localhost:5000/api/map", moved);
           setPlayer({ ...player, ...res.data });
+          setCooldown(res.data.cooldown);
         }
       } catch (err) {
         console.log(err);
@@ -159,12 +162,25 @@ const Map = props => {
     <div>
       <div className={classes.gridContainer}>{createMap()}</div>
       <div className={classes.navigation}>
-        <button onClick={() => move("n")}>North</button>
-        <div>
-          <button onClick={() => move("w")}>West</button>
-          <button onClick={() => move("s")}>South</button>
-          <button onClick={() => move("e")}>East</button>
+        <h2 className={classes.headertwo}>Movement:</h2>
+        <button className={classes.navButtons} nClick={() => move("n")}>
+          North
+        </button>
+        <div className={classes.navBotButtons}>
+          <button className={classes.navButtons} onClick={() => move("w")}>
+            West
+          </button>
+          <button className={classes.navButtons} onClick={() => move("s")}>
+            South
+          </button>
+          <button className={classes.navButtons} onClick={() => move("e")}>
+            East
+          </button>
         </div>
+      </div>
+      <div className={classes.navigation}>
+        <h2 className={classes.headertwo}>Cooldown for Next Move:</h2>
+        <Timer cooldown={cooldown} setCooldown={setCooldown} />
       </div>
     </div>
   );
