@@ -24,6 +24,7 @@ const Map = props => {
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/map")
+      .get("https://treasure-hunt-map.herokuapp.com/api/map")
       .then(res => {
         console.log(res.data);
         setMap(res.data.rooms);
@@ -146,7 +147,11 @@ const Map = props => {
           //   items,
           //   exits
           // } = moved;
-          const res = await axios.post("http://localhost:5000/api/map", moved);
+          // const res = await axios.post("http://localhost:5000/api/map", moved);
+          const res = await axios.post(
+            "https://treasure-hunt-map.herokuapp.com/api/map",
+            moved
+          );
           setPlayer({ ...player, ...res.data });
           setCooldown(res.data.cooldown);
         }
