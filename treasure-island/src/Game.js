@@ -72,23 +72,31 @@ const Game = () => {
           <p className={classes.text}> Room: {player.room_id}</p>
           <p className={classes.text}> Coords: {player.coordinates}</p>
         </div>
+        <div className={classes.headerAndText}>
+          <h2 className={classes.headertwo}>Items at Current Location:</h2>
+          {player.items.map(item => {
+            return (
+              <p className={classes.text} key={item}>
+                {item}
+              </p>
+            );
+          })}
+        </div>
         <div className={classes.errorContainer}>
-          <div
-            className={
-              player.errors ? classes.headerAndTextError : classes.hidden
-            }
-          >
-            <h2 className={classes.headertwoError}>Error:</h2>
+          <div className={classes.headerAndTextError}>
+            <h2 className={classes.headertwoError}>Error Messages:</h2>
             {player.errors.map(msg => {
-              return <p className={classes.textError}> {msg} </p>;
+              return (
+                <p className={classes.textError} key={msg}>
+                  {msg}
+                </p>
+              );
             })}
           </div>
         </div>
       </div>
-      <div className={classes.mainSection}>
-        <div className={classes.mapSection}>
-          <Map player={player} token={token} setPlayer={setPlayer} />
-        </div>
+      <div className={classes.mapSection}>
+        <Map player={player} token={token} setPlayer={setPlayer} />
       </div>
     </div>
   );

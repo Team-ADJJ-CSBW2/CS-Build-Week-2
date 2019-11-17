@@ -1,6 +1,9 @@
 import { makeStyles } from "@material-ui/core";
 
 const GameStyles = makeStyles({
+  hidden: {
+    visibility: "hidden"
+  },
   container: {
     display: "flex",
     maxWidth: "1500px",
@@ -49,14 +52,12 @@ const GameStyles = makeStyles({
     fontSize: "1.6rem",
     color: "red"
   },
-  hidden: {
-    visibility: "hidden"
-  },
-  mainSection: {
+
+  mapSection: {
     display: "flex",
     margin: "0 auto",
     flexDirection: "column",
-    width: "50%"
+    width: "70%"
   },
   instructions: {
     fontSize: "2rem"

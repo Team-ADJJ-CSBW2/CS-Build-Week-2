@@ -86,7 +86,7 @@ const Map = props => {
                   </div>
                   {/* render room icon differently based on if player is in room */}
                   {player.coordinates === `(${x},${y})` && (
-                    <FontAwesomeIcon size="6x" icon={faSquare} />
+                    <FontAwesomeIcon icon={faSquare} />
                   )}
                   {player.coordinates !== `(${x},${y})` && (
                     <FontAwesomeIcon icon={regSquare} />
@@ -163,7 +163,7 @@ const Map = props => {
       <div className={classes.gridContainer}>{createMap()}</div>
       <div className={classes.navigation}>
         <h2 className={classes.headertwo}>Movement:</h2>
-        <button className={classes.navButtons} nClick={() => move("n")}>
+        <button className={classes.navButtons} onClick={() => move("n")}>
           North
         </button>
         <div className={classes.navBotButtons}>
