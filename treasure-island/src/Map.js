@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GameStyles from "./GameStyles.js";
 import Timer from "./Timer.js";
+import AutoExplore from "./AutoExplore.js";
 import axios from "axios";
 
 import { faSquare as regSquare } from "@fortawesome/free-regular-svg-icons";
@@ -23,7 +24,7 @@ const Map = props => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/map")
+      // .get("http://localhost:5000/api/map")
       .get("https://treasure-hunt-map.herokuapp.com/api/map")
       .then(res => {
         console.log(res.data);
@@ -186,6 +187,15 @@ const Map = props => {
       <div className={classes.navigation}>
         <h2 className={classes.headertwo}>Cooldown for Next Move:</h2>
         <Timer cooldown={cooldown} setCooldown={setCooldown} />
+      </div>
+      <div className={classes.navigation}>
+        <h2 className={classes.headertwo}>Auto Explore:</h2>
+        <AutoExplore
+          cooldown={cooldown}
+          player={player}
+          graph={graph}
+          move={move}
+        />
       </div>
     </div>
   );

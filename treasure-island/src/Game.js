@@ -5,7 +5,7 @@ import Map from "./Map.js";
 
 const Game = () => {
   const classes = GameStyles();
-  const token = process.env.REACT_APP_TOKEN;
+  const token = process.env.REACT_APP_TOKEN || localStorage.getItem("token");
 
   const [player, setPlayer] = useState({
     name: "Unknown",
